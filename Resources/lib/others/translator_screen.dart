@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class TranslatorScreen extends StatefulWidget {
   const TranslatorScreen({Key? key}) : super(key: key);
@@ -26,6 +28,19 @@ class _TranslatorScreenState extends State<TranslatorScreen> {
       _translatedNumber = numericString;
     });
   }
+
+  void _makePhoneCall(String number) async {
+  final Uri launchUri = Uri(
+    scheme: 'tel',
+    path: number.replaceAll('-', ''), // Elimina los guiones si están presentes
+  );
+  if (await canLaunchUrl(launchUri)) {
+    await launchUrl(launchUri);
+  } else {
+    throw 'No se pudo lanzar ${launchUri.toString()}';
+  }
+}
+
 
   String _letterToNumber(String letter) {
     const Map<String, String> letterToNumberMap = {
@@ -66,6 +81,10 @@ class _TranslatorScreenState extends State<TranslatorScreen> {
             style: const TextStyle(
               fontSize: 20
             ),
+          ),
+          ElevatedButton(
+            onPressed: () => _makePhoneCall(_translatedNumber),
+            child: const Text('Llamar')
           )
         ],
       )

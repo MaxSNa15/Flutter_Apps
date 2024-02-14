@@ -60,10 +60,24 @@ class _TranslatorScreenState extends State<TranslatorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blue[900],
+        foregroundColor: Colors.white,
         title: const Text('Traductor de Números Telefónicos'),
       ),
       body: Column (
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget> [
+          const Padding(
+            padding: EdgeInsets.all(10),
+            child: Text(
+              'Introduce un número telefónico para traducirlo a números',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                fontStyle: FontStyle.italic
+              ),
+            ),
+          ),
           TextField(
             decoration: const InputDecoration(
               hintText: 'Introduce el número (ejemplo: 555-GET-FOOD)'
@@ -73,6 +87,10 @@ class _TranslatorScreenState extends State<TranslatorScreen> {
             },
           ),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.green,
+              foregroundColor: Colors.white
+            ),
             onPressed: _translateNumber, 
             child: const Text('Traducir')
           ),
@@ -83,6 +101,10 @@ class _TranslatorScreenState extends State<TranslatorScreen> {
             ),
           ),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.green,
+              foregroundColor: Colors.white
+            ),
             onPressed: () => _makePhoneCall(_translatedNumber),
             child: const Text('Llamar')
           )
